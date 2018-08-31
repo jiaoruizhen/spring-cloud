@@ -1,0 +1,37 @@
+zuul:
+  ignored-services:   #添加之后就不能用应用名访问
+     "*"
+  routes: 
+   # user-consumer: /user-proxy/**     #指定该服务只能使用次url访问,可以配置多个此路径
+   # user-service: /user-proxy1/**
+    feign-a:
+      path: /feign-a/**
+      serviceId: user-consumer
+      sensitiveHeaders:
+    feign-b:
+      path: /feign-b/**
+      serviceId: user-service
+      sensitiveHeaders:        # zuul默认是屏蔽Cookie的，要想使用Cookie，要在application.yml中配置sensitiveHeaders并把它设为空
+    
+server:
+  port: 8764
+
+eureka:
+  client: # 客户端进行Eureka注册的配置
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 2 # 设置心跳的时间间隔（默认是30秒）
+    lease-expiration-duration-in-seconds: 5 # 如果现在超过了5秒的间隔（默认是90秒）
+    prefer-ip-address: true     # 访问的路径变为IP地址
+
+spring:
+   application:
+     name: zuul-session
+     
+security:
+    basic:
+     enabled: true    #启用SpringSecurity的安全配置项
+    user:
+     name: jmxjava    #认证用户名
+     password: jmxhello #认证密码
