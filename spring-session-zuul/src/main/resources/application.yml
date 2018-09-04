@@ -7,11 +7,11 @@ zuul:
     feign-a:
       path: /feign-a/**
       serviceId: user-consumer
-      sensitiveHeaders:
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
     feign-b:
       path: /feign-b/**
       serviceId: user-service
-      sensitiveHeaders:        # zuul默认是屏蔽Cookie的，要想使用Cookie，要在application.yml中配置sensitiveHeaders并把它设为空
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization        # zuul默认是屏蔽Cookie的，要想使用Cookie，要在application.yml中配置sensitiveHeaders并把它设为空
     
 server:
   port: 8764
@@ -28,10 +28,16 @@ eureka:
 spring:
    application:
      name: zuul-session
+battcn:
+  security:
+    token:
+      expiration-time: 30 # 分钟 1440
+      refresh-exp-time: 30 # 分钟 2880
+      issuer: http://blog.battcn.com
+      signing-key: battcn
+
+logging:
+  level:
+    com.netflix: DEBUG
+    com.battcn: DEBUG
      
-security:
-    basic:
-     enabled: true    #启用SpringSecurity的安全配置项
-    user:
-     name: jmxjava    #认证用户名
-     password: jmxhello #认证密码

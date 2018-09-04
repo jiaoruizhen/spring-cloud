@@ -17,7 +17,7 @@ public class UserController {
 		return userService.add(name,age,username);
 	}
 	
-	@RequestMapping(value="/findAll",method=RequestMethod.POST)
+	@RequestMapping(value="/findAll",method=RequestMethod.GET)
 	public Object findAll(){
 		return userService.selectAll();
 	}

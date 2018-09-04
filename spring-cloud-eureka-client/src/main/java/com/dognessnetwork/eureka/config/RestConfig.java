@@ -19,7 +19,7 @@ public class RestConfig {
 	@Bean
 	public HttpHeaders getHeader() {
 	    HttpHeaders headers=new HttpHeaders();
-	    String auth="jmxjava:jmxhello";//认证的原始信息
+	    String auth="app01:passwd01";//认证的原始信息
 	    byte[] encodeAuth=Base64.getEncoder().encode(auth.getBytes(Charset.forName("US-ASCII")));//将原始认证信息进行Base64加密
 	    String authHeader="Basic "+new String(encodeAuth);//加密后的认证信息要与Basic有个空格
 	    headers.set("Authorization", authHeader);

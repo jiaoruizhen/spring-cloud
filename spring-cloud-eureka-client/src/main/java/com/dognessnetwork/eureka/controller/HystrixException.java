@@ -20,7 +20,7 @@ public class HystrixException {
 	
 	    @Resource
 	    private UserService userService;
-	    @RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	    @RequestMapping(value = "/findAll", method = RequestMethod.POST)
 	    @HystrixCommand(fallbackMethod="getFallback")    // 如果当前调用的get()方法出现了错误，则执行fallback
 	    public Object findAll() {
 	    	List<User> users=userService.findAll();
